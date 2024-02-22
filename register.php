@@ -19,8 +19,28 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-7">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Create New Account</h3></div>
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Registrasi Akun Perpustakaan</h3></div>
                                     <div class="card-body">
+                                        <?php
+                                        if(isset ($_SESSION['login'])) {
+                                            $username = $_POST(['username']);
+                                            $password = $_POST(['password']);
+                                            $email = $_POST(['email']);
+                                            $nama_lengkap = $_POST(['nama_lengkap']);
+                                            $alamat = $_POST(['alamat']);
+                                            $level = $_POST(['level']);
+
+                                            $insert = mysqli_query($koneksi, "INSERT INTO user ('username', 'password', 'email', 'nama_lengkap', 'alamat', 'level') VALUES ('$username', '$password', '$email', '$nama_lengkap', '$alamat', '$level') ");
+
+                                            if($insert) {
+                                                $_SESSION['user'] = mysqli_fetch_array($insert);
+                                                echo '<script>alert("Login berhasil, Masuk ke Halaman Login")location.href="login.php"</script>';
+                                            }else{
+                                                echo '<script>alert("Login gagal")';
+                                            }
+                                            }
+                                        
+                                        ?>
                                         <form>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
@@ -54,7 +74,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="mt-4 mb-0">
+                                             <div class="mt-4 mb-0">
                                                 <div class="d-grid"><a class="btn btn-primary btn-block" href="login.php">Create Account</a></div>
                                             </div>
                                         </form>

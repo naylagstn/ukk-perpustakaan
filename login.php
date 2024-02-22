@@ -18,27 +18,31 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Login Perpustakaan Digital</h3></div>
                                     <div class="card-body">
                                         <form method="post">
-                                            <?php
-                                             if(lisset($_SESSION['login']) {
-                                              $username = ($_POST['username']);
-                                              $password = md5 ($_POST['password']);
+                                           <?php
+                                           if(isset ($_SESSION['login'])) {
+                                            $username = $_POST['username'];
+                                            $password = md5 ($_POST['password']);
 
-                                              $data = mysqli_query($koneksi, "SELECT*FROM user WHERE 'username' $username and 'password' $password");
-                                              $cek = mysqli_num_rows ($data);
-                                             }
-                                             ?>
+                                            $data = mysqli_query($koneksi, "SELECT*FROM user where username=$username' and password=$password");
+                                            $cek = mysqli_num_rows($data);
+
+                                            if($cek > 0){
+                                                $_SESSION['user'] = mysqli_fettch_array($data);
+                                                echo '<script>alert("Login berhasil, Masuk ke Beranda")location.href="index.php"</script>';
+                                            }else{
+                                                echo '<script>alert("Login gagal, Silahkan Ulang Kembali")location.href="index.php"</script>';
+                                            }
+                                            }
+
+                                        ?>
 
                                         <form>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com"/>
-                                                <label for="inputEmail">Email address</label>
-                                            </div>
-                                            <div class="form-floating mb-3">
                                                 <input class="form-control" id="inputUsername" type="username" placeholder="Masukkan username"/>
-                                                <label for="inputUsername">Username</label>
+                                                <label for="inputUsername">username</label>
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" id="inputPassword" type="password" placeholder="Masukkan password"/>
@@ -46,12 +50,12 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                                 <button class="btn btn-primary" href="index.php">Login</a>
-                                                <button class="btn btn-danger" href="index.php">Register</a>
+                                                <button class="btn btn-danger" href="register.php">Register</a>
                                             </div>
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="register.php">Need an account? Sign up!</a></div>
+                                        <div class="small"><a href="register.php">Butuh Akun? Registrasi</a></div>
                                     </div>
                                 </div>
                             </div>
